@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# React Tic Tac Toe AI 🎮
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a Tic Tac Toe game implemented in React, featuring an AI opponent that utilizes the minimax algorithm to make its moves.
 
-## Available Scripts
+## Functionality 🛠️
+- Allows two players to take turns (human vs. AI).
+- Implements a minimax algorithm for the AI to make intelligent moves.
+- Displays the winner or a tie when the game ends.
+- Provides an option to reload the game board.
 
-In the project directory, you can run:
+## Prerequisites 📋
+- Node.js
+- npm or yarn
 
-### `npm start`
+## Installation 💻
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/SuryaSan24x7/CognoRise-InfoTech.git
+   ```
+2. Navigate to the project directory:
+    ```bash
+    cd CognoRise-InfoTech/Task_1/tic-tac-toe-javascript
+    ```
+3. Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+## Gameplay 🎲
+- Start the game by selecting a player symbol (X or O).
+- Click on a cell to make your move.
+- The AI will make its move immediately after the human player.
+- The game ends when either player wins or the board is filled (resulting in a tie).
+- Reload the game board to start a new game.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## File Structure 📁
+- `App.js`: Contains the React component for the game logic and UI.
+- `App1.css`: Contains the CSS styling for the game.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Live Demo 🌐
+Check out the live demo hosted on Vercel: [React Tic Tac Toe with AI](https://cogno-rise-info-tech.vercel.app/)
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
