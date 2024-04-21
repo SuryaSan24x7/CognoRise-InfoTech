@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes changeColors {
+  0% {
+    background-color: rgba(255, 253, 208, 0.1); /* Light cream */
+  }
+  25% {
+    background-color: rgba(255, 253, 208, 0.25); /* Medium light cream */
+  }
+  50% {
+    background-color: rgba(255, 253, 208, 0.5); /* Medium cream */
+  }
+  75% {
+    background-color: rgba(255, 253, 208, 0.75); /* Medium dark cream */
+  }
+  100% {
+    background-color: rgba(255, 253, 208, 1); /* Dark cream */
+  }
+}
+
+
+  body {
+    animation: changeColors 10s infinite;
+  }
+.App {
+    text-align: center;
+  }
+  
+  .board {
+    display: inline-block;
+    margin-top: 20px;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .cell {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .status {
+    margin-top: 20px;
+    font-size: 20px;
+  }

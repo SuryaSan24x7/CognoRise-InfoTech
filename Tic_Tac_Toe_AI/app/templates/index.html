@@ -1,0 +1,150 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Tic Tac Toe with AI</title>
+    <style>
+        /* Add your styles here */
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 5px;
+            margin-top: 20px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #333;
+            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        #result {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tic Tac Toe with AI</h1>
+        <div class="board">
+            {% for row in range(3) %}
+                {% for col in range(3) %}
+                    <div class="cell" data-row="{{ row }}" data-col="{{ col }}"></div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <p id="result"></p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cells = document.querySelectorAll('.cell');
+            const resultElement = document.getElementById('result');
+            let currentPlayer = 'X';
+            let board = [
+                ['', '', ''],
+                ['', '', ''],
+                ['', '', '']
+            ];
+
+            function handleCellClick(cell) {
+                const row = cell.dataset.row;
+                const col = cell.dataset.col;
+
+                if (board[row][col] === '' && !resultElement.textContent) {
+                    cell.textContent = currentPlayer;
+                    board[row][col] = currentPlayer;
+
+                    if (checkWinner()) {
+                        resultElement.textContent = `${currentPlayer} wins!`;
+                    } else if (isBoardFull()) {
+                        resultElement.textContent = 'It\'s a draw!';
+                    } else {
+                        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                        if (currentPlayer === 'O') {
+                            // AI's turn
+                            makeAIMove();
+                        }
+                    }
+                }
+            }
+
+            function makeAIMove() {
+                makeAIServerMove();
+            }
+
+            function makeAIServerMove() {
+                // Send the current game state to the server for AI move
+                fetch('/make_move', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        board: board
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const { move } = data;
+                    if (move) {
+                        const [row, col] = move;
+                        const selectedCell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                        handleCellClick(selectedCell);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            }
+
+            function checkWinner() {
+                for (let i = 0; i < 3; i++) {
+                    if (board[i][0] !== '' && board[i][0] === board[i][1] && board[i][1] === board[i][2]) {
+                        return true;
+                    }
+                    if (board[0][i] !== '' && board[0][i] === board[1][i] && board[1][i] === board[2][i]) {
+                        return true;
+                    }
+                }
+
+                if (board[0][0] !== '' && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
+                    return true;
+                }
+                if (board[0][2] !== '' && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            function isBoardFull() {
+                for (let row of board) {
+                    if (row.includes('')) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            cells.forEach(cell => {
+                cell.addEventListener('click', () => handleCellClick(cell));
+            });
+        });
+    </script>
+</body>
+</html>
