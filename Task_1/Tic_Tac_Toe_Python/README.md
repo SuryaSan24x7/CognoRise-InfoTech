@@ -15,10 +15,6 @@ This is a Tic Tac Toe game implemented in Python using the Pygame library for th
     ```bash
     cd CognoRise-InfoTech/Task_1/Tic_Tac_Toe_Python
     ```
-3. Install Pygame:
-    ```bash
-    pip install pygame
-    ```
 ## Usage
 Run the game by executing the following command in your terminal:
 

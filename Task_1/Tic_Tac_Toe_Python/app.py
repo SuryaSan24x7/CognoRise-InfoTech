@@ -1,6 +1,7 @@
 import pygame
 import sys
 import math
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -25,17 +26,12 @@ pygame.display.set_caption("Tic Tac Toe")
 screen.fill(WHITE)
 
 # Define the board
-board = [[None]*BOARD_COLS for _ in range(BOARD_ROWS)]
+board = [[None] * BOARD_COLS for _ in range(BOARD_ROWS)]
 
 # Define constants for the players
 X = 'X'
 O = 'O'
 EMPTY = None
-
-# Function to print the current board
-def print_board(board):
-    for row in board:
-        print(row)
 
 # Function to check if a player has won
 def check_winner(board, player):
@@ -45,7 +41,7 @@ def check_winner(board, player):
            all([board[j][i] == player for j in range(BOARD_ROWS)]):
             return True
     if all([board[i][i] == player for i in range(BOARD_ROWS)]) or \
-       all([board[i][BOARD_ROWS-1-i] == player for i in range(BOARD_ROWS)]):
+       all([board[i][BOARD_ROWS - 1 - i] == player for i in range(BOARD_ROWS)]):
         return True
     return False
 
@@ -55,7 +51,12 @@ def is_board_full(board):
 
 # Function to get the available moves
 def get_available_moves(board):
-    return [(i, j) for i in range(BOARD_ROWS) for j in range(BOARD_COLS) if board[i][j] is EMPTY]
+    available_moves = []
+    for i in range(BOARD_ROWS):
+        for j in range(BOARD_COLS):
+            if board[i][j] == EMPTY:
+                available_moves.append((i, j))
+    return available_moves
 
 # Minimax algorithm
 def minimax(board, depth, maximizing_player):
@@ -71,7 +72,7 @@ def minimax(board, depth, maximizing_player):
         for move in get_available_moves(board):
             i, j = move
             board[i][j] = O
-            eval = minimax(board, depth+1, False)
+            eval = minimax(board, depth + 1, False)
             board[i][j] = EMPTY
             max_eval = max(max_eval, eval)
         return max_eval
@@ -80,7 +81,7 @@ def minimax(board, depth, maximizing_player):
         for move in get_available_moves(board):
             i, j = move
             board[i][j] = X
-            eval = minimax(board, depth+1, True)
+            eval = minimax(board, depth + 1, True)
             board[i][j] = EMPTY
             min_eval = min(min_eval, eval)
         return min_eval
@@ -88,7 +89,7 @@ def minimax(board, depth, maximizing_player):
 # Function to get the best move using minimax
 def get_best_move(board):
     best_eval = -math.inf
-    best_move = None
+    best_moves = []
     for move in get_available_moves(board):
         i, j = move
         board[i][j] = O
@@ -96,8 +97,10 @@ def get_best_move(board):
         board[i][j] = EMPTY
         if eval > best_eval:
             best_eval = eval
-            best_move = move
-    return best_move
+            best_moves = [move]
+        elif eval == best_eval:
+            best_moves.append(move)
+    return random.choice(best_moves)
 
 # Function to draw the grid lines
 def draw_grid():
@@ -110,10 +113,10 @@ def draw_figures():
     for row in range(BOARD_ROWS):
         for col in range(BOARD_COLS):
             if board[row][col] == X:
-                pygame.draw.line(screen, GREEN, (col * SQUARE_SIZE + 20, row * SQUARE_SIZE + SQUARE_SIZE - 20),
-                                 (col * SQUARE_SIZE + SQUARE_SIZE - 20, row * SQUARE_SIZE + 20), LINE_WIDTH)
                 pygame.draw.line(screen, GREEN, (col * SQUARE_SIZE + 20, row * SQUARE_SIZE + 20),
                                  (col * SQUARE_SIZE + SQUARE_SIZE - 20, row * SQUARE_SIZE + SQUARE_SIZE - 20), LINE_WIDTH)
+                pygame.draw.line(screen, GREEN, (col * SQUARE_SIZE + 20, row * SQUARE_SIZE + SQUARE_SIZE - 20),
+                                 (col * SQUARE_SIZE + SQUARE_SIZE - 20, row * SQUARE_SIZE + 20), LINE_WIDTH)
             elif board[row][col] == O:
                 pygame.draw.circle(screen, BLUE, (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), SQUARE_SIZE // 2 - 20, LINE_WIDTH)
 
@@ -123,6 +126,13 @@ def get_row_col_from_mouse(pos):
     row = y // SQUARE_SIZE
     col = x // SQUARE_SIZE
     return row, col
+
+# Function to display whose turn it is
+def show_turn(player):
+    font = pygame.font.SysFont(None, 48)
+    text = font.render(f"Player {player}'s turn", True, BLACK)
+    text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    screen.blit(text, text_rect)
 
 # Main game loop
 def main():
@@ -148,18 +158,22 @@ def main():
                             game_over = True
                         else:
                             current_player = O
-                            best_move = get_best_move(board)
-                            board[best_move[0]][best_move[1]] = O
-                            if check_winner(board, O):
-                                print("AI wins!")
-                                game_over = True
-                            elif is_board_full(board):
-                                print("It's a tie!")
-                                game_over = True
+                else:  # AI's turn
+                    best_move = get_best_move(board)
+                    board[best_move[0]][best_move[1]] = O
+                    if check_winner(board, O):
+                        print("AI wins!")
+                        game_over = True
+                    elif is_board_full(board):
+                        print("It's a tie!")
+                        game_over = True
+                    else:
+                        current_player = X
 
         screen.fill(WHITE)
         draw_grid()
         draw_figures()
+        show_turn(current_player)
         pygame.display.update()
 
 # Run the game
