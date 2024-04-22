@@ -1,7 +1,28 @@
 body {
     font-family: Arial, sans-serif;
 }
-
+@keyframes changeColors {
+    0% {
+      background-color: rgba(255, 253, 208, 0.1); /* Light cream */
+    }
+    25% {
+      background-color: rgba(255, 253, 208, 0.25); /* Medium light cream */
+    }
+    50% {
+      background-color: rgba(255, 253, 208, 0.5); /* Medium cream */
+    }
+    75% {
+      background-color: rgba(255, 253, 208, 0.75); /* Medium dark cream */
+    }
+    100% {
+      background-color: rgba(255, 253, 208, 1); /* Dark cream */
+    }
+  }
+  
+  
+    body {
+      animation: changeColors 10s infinite;
+    }
 .container {
     text-align: center;
     margin-top: 50px;

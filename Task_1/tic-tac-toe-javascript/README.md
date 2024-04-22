@@ -27,6 +27,10 @@ This is a Tic Tac Toe game implemented in React, featuring an AI opponent that u
     # or
     yarn install
     ```
+## Usage
+```
+npm start
+   ```
 ## Gameplay 🎲
 - Start the game by selecting a player symbol (X or O).
 - Click on a cell to make your move.
