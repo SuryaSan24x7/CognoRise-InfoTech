@@ -52,4 +52,4 @@ Get ready to test your reflexes and compete in an exciting game of Ping Pong AI!
 
 ---
 
-🚀 Happy playing!
+🚀 [Play Ping Pong AI now!](https://cogno-rise-info-tech-jhno.vercel.app/)
