@@ -1,2 +1,9 @@
-data/
-.vscode/
+# Ignore everything
+*
+
+# Except for specific directories and files
+!Digit_Recogniser/
+!PingPong_AI/
+!README.md
+!Tic_Tac_Toe_AI/
+!mnist_cnn.pth
