@@ -7,4 +7,5 @@
 🎮 Play the Ping Pong AI game live: [Ping Pong AI using JS](https://cogno-rise-info-tech-jhno.vercel.app/)
 
 ## 4. Digit Recogniser
+This project implements a Convolutional Neural Network (CNN) to classify handwritten digits from the MNIST dataset.
 
