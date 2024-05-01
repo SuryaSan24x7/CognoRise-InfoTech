@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digit Recognition</title>
+    <style>
+        body {
+            background: linear-gradient(to right,  #27371f, #422629);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #loading p {
+            color: #0066ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload a Handwritten Digit Image</h1>
+        <form id="upload-form" action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="file-input" onchange="previewFile()">
+            <img id="preview" src="#" alt="Image Preview" class="hidden">
+            <div id="loading" class="hidden">
+                <p>Loading...</p>
+            </div>
+            <button type="submit">Recognize Digit</button>
+        </form>
+    </div>
+
+    <script>
+        function previewFile() {
+            const preview = document.getElementById('preview');
+            const file = document.getElementById('file-input').files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function () {
+                preview.src = reader.result;
+                preview.classList.remove('hidden');
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+                preview.classList.add('hidden');
+            }
+        }
+
+        const form = document.getElementById('upload-form');
+        form.addEventListener('submit', function (e) {
+            const loading = document.getElementById('loading');
+            const fileInput = document.getElementById('file-input');
+
+            if (fileInput.files.length > 0) {
+                loading.classList.remove('hidden'); // Show loading text
+            } else {
+                alert('Please select a file before submitting.');
+                e.preventDefault(); // Prevent form from submitting
+            }
+        });
+    </script>
+</body>
+</html>
