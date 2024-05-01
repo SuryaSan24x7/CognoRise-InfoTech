@@ -1,5 +1,6 @@
 import React, { useState ,useEffect} from 'react';
 import './App1.css';
+import { Analytics } from "@vercel/analytics/react"
 
 const X = 'X';
 const O = 'O';
